@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "OS1Assignment",
+      "request": "launch",
+      "mainClass": "OS1Assignment",
+      "projectName": "OS1_Assignment_a7394f35"
+    },
+    {
+      "name": "Python",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "",
+      "console": "integratedTerminal"
+    }
+  ]
+}
