@@ -39,8 +39,8 @@ public class OS1Assignment {
         // Slice the 64bit string into 12 bits
         String bit5 = binaryValue.substring(52, 57);
         String bit7 = binaryValue.substring(57);
-
-        return null;
+        String newsString = indecies.get(bit5) + bit7;
+        return newsString;
     }
 
     public static void fillmap() {
@@ -57,7 +57,8 @@ public class OS1Assignment {
         fillmap();
         ArrayList<String> arrayList = readfile("OS1testsequence");
         System.out.println(arrayList);
-        System.out.println(Hex_to_binary(arrayList.get(0)));
+        System.out.println(binary_to_new(Hex_to_binary("00000044")));
+        System.out.println(binary_to_new(Hex_to_binary(arrayList.get(0))));
     }
 
 }
