@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +41,10 @@ public class OS1Assignment {
         String bit5 = binaryValue.substring(52, 57);
         String bit7 = binaryValue.substring(57);
         String newsString = indecies.get(bit5) + bit7;
-        return newsString;
+        int binaryint = Integer.parseInt(newsString, 2);
+        String hexvalue = Integer.toHexString(binaryint);
+        hexvalue = "0x" + hexvalue + "\n";
+        return hexvalue;
     }
 
     public static void fillmap() {
@@ -53,12 +57,23 @@ public class OS1Assignment {
         indecies.put("00110", "00110");
     }
 
+    public static void write_to_file(ArrayList<String> arrayList) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream("output-OS1");
+        for (int i = 0; i < arrayList.size(); i++) {
+            System.out.println(binary_to_new(Hex_to_binary(arrayList.get(i))));
+            byte[] bytestring = binary_to_new(Hex_to_binary(arrayList.get(i))).getBytes();
+            fileOutputStream.write(bytestring);
+            // for(int j = 0 ; j <bytestring.length;j++){
+            // }
+        }
+        fileOutputStream.close();
+    }
+
     public static void main(String[] args) throws IOException {
         fillmap();
         ArrayList<String> arrayList = readfile("OS1testsequence");
         System.out.println(arrayList);
-        System.out.println(binary_to_new(Hex_to_binary("00000044")));
-        System.out.println(binary_to_new(Hex_to_binary(arrayList.get(0))));
+        write_to_file(arrayList);
     }
 
 }
