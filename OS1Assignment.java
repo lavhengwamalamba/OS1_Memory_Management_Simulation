@@ -12,16 +12,20 @@ public class OS1Assignment {
         ArrayList<String> arrayList = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(filename);
-            long byt;
-            int remaining = fileInputStream.available();
-            for (int j = 0; j < (remaining / 8); j++) {
-                String referenceString = "";
-                for (int i = 0; i < 8; i++) {
-                    byt = fileInputStream.read();
-                    referenceString = "" + byt + referenceString;
+            int byt;
+            int count = 0;
+            String referenceString = "";
+
+            while ((byt = fileInputStream.read()) != -1) {
+                String bytstring = Integer.toHexString(byt);
+                count++;
+                referenceString = "" + bytstring + referenceString;
+                if (count >= 8) {
+                    arrayList.add(referenceString);
+                    referenceString = "";
+                    count = 0;
                 }
-                arrayList.add(referenceString);
-                // break;
+
             }
             fileInputStream.close();
         } catch (FileNotFoundException e) {
@@ -40,7 +44,12 @@ public class OS1Assignment {
         // Slice the 64bit string into 12 bits
         String bit5 = binaryValue.substring(52, 57);
         String bit7 = binaryValue.substring(57);
-        String newsString = indecies.get(bit5) + bit7;
+        String newsString = indecies.get(bit5);
+
+        if (newsString == null) {
+            newsString = "00000";
+        }
+        newsString += bit7;
         int binaryint = Integer.parseInt(newsString, 2);
         String hexvalue = Integer.toHexString(binaryint);
         hexvalue = "0x" + hexvalue + "\n";
@@ -60,19 +69,17 @@ public class OS1Assignment {
     public static void write_to_file(ArrayList<String> arrayList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream("output-OS1");
         for (int i = 0; i < arrayList.size(); i++) {
-            System.out.println(binary_to_new(Hex_to_binary(arrayList.get(i))));
             byte[] bytestring = binary_to_new(Hex_to_binary(arrayList.get(i))).getBytes();
             fileOutputStream.write(bytestring);
-            // for(int j = 0 ; j <bytestring.length;j++){
-            // }
+
         }
         fileOutputStream.close();
     }
 
     public static void main(String[] args) throws IOException {
         fillmap();
-        ArrayList<String> arrayList = readfile("OS1testsequence");
-        System.out.println(arrayList);
+        String userinput=args[0];
+        ArrayList<String> arrayList = readfile(userinput);
         write_to_file(arrayList);
     }
 
