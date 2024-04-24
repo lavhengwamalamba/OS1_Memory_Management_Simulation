@@ -39,7 +39,3 @@ java OS1Assignment OS1sequence
 - The assignment prompt and requirements are detailed in the provided problem description.
 
 Feel free to explore the code and utilize it for educational purposes. If you have any questions or suggestions for improvement, please don't hesitate to reach out.
-
----
-
-Feel free to customize and expand upon this README as needed, adding any additional details or instructions specific to your project or assignment requirements.
